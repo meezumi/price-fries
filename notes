@@ -1,0 +1,21 @@
+spinning up the process as we begin the project, we create react app, ver 13.5.3
+  npx create-react-app@13.5.3
+
+choosing the configs, we simply run 
+  npm run dev
+
+removing the existing template, we dont need:
+rafce page.tsx in app,
+editing global.css
+same with tailwind.config.ts
+and updating fonts in layout.tsx, adding weights
+adding navbar component in the body of the layout.tsx
+
+creating navbar as welll placing it inside components, which we later import in the layout.tsx 
+
+we added navbar in the layout itself, cause navbars, headers and footers all usually stay the same through the entire website so we can just share them instead of always having to create it again n again :)
+
+later we reconfig the public folder with new assets containing images and icons, gonna add them as we first use them.
+
+adding stylings and actually creating navbar now.
+working in the navbas.jsx file
