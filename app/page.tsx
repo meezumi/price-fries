@@ -1,11 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
+import Searchbar from '@/components/Searchbar'
+import HeroCarousel from '@/components/HeroCarousel'
 
 const Home = () => {
   return ( 
     <>
     {/* empty react elements helps us to add more elements within it. */}
-      <section className='px-6 md:px-20 py-24 border-2 border-red-500'> 
+      <section className='px-6 md:px-20 py-24'> 
         <div className='flex max-xl:flex-col gap-16'>
           <div className='flex flex-col justify-center'>
 
@@ -20,7 +22,7 @@ const Home = () => {
             </p>
 
             <h1 className='head-text'>
-              Unleash the Power of
+              Unshackle the Power of
               <span className='text-primary'> PriceFries</span>
             </h1>
             
@@ -28,12 +30,11 @@ const Home = () => {
               Powerful, self-serve product and growth analytics to help you convert, engage and retain more.
             </p>
 
-            SearchBar 
-            {/* will add this in the future */}
+            <Searchbar />
 
           </div>
 
-          HeroCarousel
+          <HeroCarousel />
 
         </div>
       </section>

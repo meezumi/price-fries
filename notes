@@ -26,7 +26,26 @@ next we create the home.tsx page, adding the head section for the homepage, hero
 
 commit --
 
+moving on to the searchBar first, creating searchbar.tsx component and updating its UI.
+next we move to the heroCarousel, working on its UI: 
+  for this we use: 
+    npm install react-responsive-carousel
 
+https://www.npmjs.com/package/react-responsive-carousel
+
+adding code from the usage code snippet in the website
+
+we reconfigure the images to the images we gonna add from local machine and add props to the carousel now, referencing how to do that from the link above.
+
+again, the user can interact with this carousel, hence, we need to add "use client" on the top in order to fix all the errors :)
+
+next we add a arrow pointing towards the link text entry field, only visible when te website is landscape-ish
+
+adding the interaction functionality of the serachBar
+making it check if the url entered belongs to the hostname amazon or not
+and disbaling the button if the field is empty.
+
+commit --
 
 
 
