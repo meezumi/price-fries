@@ -19,3 +19,14 @@ later we reconfig the public folder with new assets containing images and icons,
 
 adding stylings and actually creating navbar now.
 working in the navbas.jsx file
+
+commit --
+
+next we create the home.tsx page, adding the head section for the homepage, heroCarousel, searchBar, and the Trending section text marks, that will be build step wise step one by one
+
+commit --
+
+
+
+
+
