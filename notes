@@ -47,5 +47,61 @@ and disbaling the button if the field is empty.
 
 commit --
 
+to enable web scraping, we will now work on the server side section, implimenting server side actions, 
+  lib -> actions -> index.ts 
+
+try catch block is used to handle async functions.
+
+next for the scraper(we will be using bright data), we form:
+  lib -> scraper -> index.ts 
+
+next we head to https://brightdata.com/ create account and choose proxy scraping Infrastructure and under it we select web unblocker
+
+and we set it up by giving it the name pricefries and adding the web scraper
+https://brightdata.com/cp/zones/pricefries/access_params
+
+now for the credentials to be stored we create a .env as we add info to the index.ts for scraper.
+
+get the port number from the link: 22225
+host here is brd.superproxy.io
+<!-- curl --proxy brd.superproxy.io:22225 --proxy-user brd-customer-hl_cd149885-zone-pricefries:icj2vo6gshhq -k "http://geo.brdtest.com/mygeo.json" -->
+
+generate a sessionID by: 
+  const session_id = (1000000 * Math.random()) | 0;
 
 
+to fetch the amazon product we need to scrape, we need to fetch it which can be done using axios, with cheerio:
+  npm install axios cheerio
+
+https://cheerio.js.org/ 
+
+parsing is import in scraping, cause we need only the stuff we want from the scraped info i.e parsed content, which is made easier by cheerio.
+
+now we add the scraping functionality in the searchbar, setting up the backend of it.
+  components -> searchBar.tsx
+
+tesing it out taking this as example:
+  https://www.amazon.in/Fire-Boltt-Stainless-Resolution-Brightness-Bluetooth/dp/B0C49DCRN7/?_encoding=UTF8&ref_=pd_hp_d_atf_ci_mcx_mr_hp_atf_m
+
+updating the next.config.js to fix the network error, found while testing the scraper.
+
+error fixed. got the output in console (pretty big damn)
+so to parse it, we add cheerio.
+
+need to specify the class or id, of which information we want, so we go to amazon and inspect the website in order to know what we need.
+
+to find the price of product in the midst of so much span elements we create a utility function under lib 
+  lib -> utils.ts
+
+now we can fetch the title, current price and original price of the product, need to fix parsing tho in the extractPrice function under utils.
+
+to get to know more about regular expressions we can just chatgpt 
+<!-- if(priceText) return priceText.replace(/[^\d.]/g, ''); -->
+
+for images, we get a whole list of objects, but we only need keysfrom them, so we need to parse them.
+
+next to get currency we create a separate function extractCurrency inside the same utils.ts
+
+next we add discountrate of the product, to determine the best time to buy the product
+
+commit --

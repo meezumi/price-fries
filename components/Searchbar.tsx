@@ -1,4 +1,5 @@
 "use client"
+import { scrapAndStoreProduct } from '@/lib/actions';
 import React, { FormEvent, useState } from 'react'
 
 const isValidAmazonProductURL = ( url: string ) => {
@@ -26,7 +27,7 @@ const Searchbar = () => {
   const [isLoading, setIsLoading] = useState(false);
 
    // since handling submits would be done from the client {using hooks}, we have to make this as use client site
-  const handleSubmit = (event: FormEvent<HTMLFormElement> ) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement> ) => {
     // since we using typescript, we need to specify the type of event happening too.
     event.preventDefault();
 
@@ -40,6 +41,8 @@ const Searchbar = () => {
       setIsLoading(true);
 
       // scraping the product will be added here.
+      const product = await scrapAndStoreProduct(searchPrompt);
+
     } catch (error) {
       console.log(error);
 
