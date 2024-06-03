@@ -104,4 +104,14 @@ next to get currency we create a separate function extractCurrency inside the sa
 
 next we add discountrate of the product, to determine the best time to buy the product
 
+category, reviewCounts, stars, to be added later.
+
 commit --
+
+now we construct data object with scraped info, instead of logging it to console:
+in the data object, we reference all the fetched info accordingly and will also create a list/array to store all the prices at different times.
+
+commit --
+
+
+
