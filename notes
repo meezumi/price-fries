@@ -113,5 +113,21 @@ in the data object, we reference all the fetched info accordingly and will also 
 
 commit --
 
+refreshing the utils.ts with proper most possible up to date parsing scheme,
+
+next we to specify the types of content we wanna extract, since we are using typescript, so we create: 
+  -> types -> index.ts 
+
+here we add all the types we will be using, examples are product, notification, user, price-history item...
+
+now in the data object, we add description(very difficult to parse entirely), lowestPrice, highestPrice and averagePrice, all important to identify which would be the best time to buuy the product.
+
+after checking, instead of logging, we gonna return the data
+
+and this data is parsed scraped data of the product, now we need to store it on our database, hence updating: 
+  libs -> actions -> index.ts 
+to add whats to be done with the data and storing it in database. 
+
+
 
 
