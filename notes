@@ -128,6 +128,32 @@ and this data is parsed scraped data of the product, now we need to store it on 
   libs -> actions -> index.ts 
 to add whats to be done with the data and storing it in database. 
 
+commit -- 
+
+next we adding the mongoose.ts for backend and setting up connection to db.
+
+so we need mongoose package added:
+  npm install mongoose
+
+(using aaryank098@gmail.com(google acc)) for the db this time.
+adding the connectToDB() exported from mongoose.ts into 
+  actions -> index.ts
+
+coneccted successfully
+
+now we will track the prices of the product and store it and its detail into our db, but what kind of thing we would be storing in the db ? 
+
+for that we need to create models/schema for the db.
+  libs -> models -> 
 
 
+always need to revalidate the path, or its gonna stay in cache.
+so we use revalidatePath inside 
+  actions -> index.ts
+
+in the same, we gonna create a new function getProductById
+
+now we will add the products route, displaying all of these to the front end
+
+commit -- 
 
