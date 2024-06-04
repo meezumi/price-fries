@@ -157,3 +157,21 @@ now we will add the products route, displaying all of these to the front end
 
 commit -- 
 
+to create a new route in nextjs, that follows a file system page, we create:
+  app -> products -> [id] -> page.tsx
+
+to get all products, we will create another action getAllProducts() in the      actions -> index.ts
+next we import the action function in the app page.tsx
+
+but we dont just wanna show title, we want cards for these products, hence new component created:
+
+to get the id of the product we just opened, we will use params in Products 
+page.tsx
+
+forgot to add: 
+  return product 
+in the async function getProductById() in the actions -> index.ts file (ahh spend a lot of time trying to find the error TwT)
+
+
+
+
