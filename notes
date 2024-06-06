@@ -181,6 +181,36 @@ libs -> actions -> index.ts
 
 commit -- 
 
+for the website to scrape automatically and update the average lowest and highest prices periodically we will be introducing cron jobs, but first we create Modal component (pop up menu if the user wants to recieve email regarding lowest price).
+
+for the dialog box we will be using headless ui components:
+  npm install @headlessui/react
+https://headlessui.com/react/dialog
+
+next we need to handle the email input by the user so we can mail them about the prices later.
+
+we got the email input now, so we need to handle the action to save the user email with the productId that the user wants to keep a track of, so:
+
+  lib -> actions -> index.ts
+
+for the mails to work realtime, we will create: 
+
+  lib -> nodemailer -> index.ts
+
+and we install the package: 
+  npm install nodemailer
+
+
+since to send mails using google, have to step up oAuth which can be really strechy, we will be using hotmail with nodemailer
+
+https://stackoverflow.com/questions/75414959/using-nodemailer-with-hotmail-node-js
+
+need to create an outlook account, 
+
+
+to fix the nodemailer error, need to add it as dev dependency:
+  npm install --save-dev @types/nodemailer
+
 
 
 
