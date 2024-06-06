@@ -172,6 +172,16 @@ forgot to add:
   return product 
 in the async function getProductById() in the actions -> index.ts file (ahh spend a lot of time trying to find the error TwT)
 
+commit --
+
+next for the priceInfo we, create card component.
+
+in order to fetch similar products, we will need to create another action in the
+libs -> actions -> index.ts
+
+commit -- 
+
+
 
 
 

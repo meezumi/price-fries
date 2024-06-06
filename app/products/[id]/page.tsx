@@ -1,4 +1,6 @@
-import { getProductById } from '@/lib/actions'
+import PriceInfoCard from '@/components/PriceInfoCard'
+import ProductCard from '@/components/ProductCard'
+import { getProductById, getSimilarProducts } from '@/lib/actions'
 import { formatNumber } from '@/lib/utils'
 import { Product } from '@/types'
 import Image from 'next/image'
@@ -13,6 +15,8 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
   const product: Product = await getProductById(id);
 
   if(!product) redirect('/')
+
+  const similarProducts = await getSimilarProducts(id);
   
   return (
     <div className='product-container'>
@@ -123,12 +127,107 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
             </div>
           </div>
 
-          <div>
-            {/* next we will be the most important stuff, price cards to showcase the track record of prices for the selected product. */}
+          {/* next we will be the most important stuff, price cards to showcase the track record of prices for the selected product. */}
+          <div className='my-7 flex flex-col gap-5'>
+
+            <div className='flex gap-5 flex-wrap'>
+              {/* we will create price component card we can create once. */}
+              {/* added all the props */}
+
+              {/* current price */}
+              <PriceInfoCard 
+                title="Current Price"
+                iconSrc="/assets/icons/price-tag.svg"
+                value={`${product.currency} ${formatNumber(product.currentPrice)}`}
+                borderColor="#b6dbff"
+              />
+
+              {/* average price */}
+              <PriceInfoCard 
+                title="Average Price"
+                iconSrc="/assets/icons/chart.svg"
+                value={`${product.currency} ${formatNumber(product.averagePrice)}`}
+                borderColor="#b6dbff"
+              />
+
+              {/* highest price */}
+              <PriceInfoCard 
+                title="Highest Price"
+                iconSrc="/assets/icons/arrow-up.svg"
+                value={`${product.currency} ${formatNumber(product.highestPrice)}`}
+                borderColor="#b6dbff"
+              />
+              
+              {/* lowest price  */}
+              <PriceInfoCard 
+                title="Lowest Price"
+                iconSrc="/assets/icons/arrow-down.svg"
+                value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
+                borderColor="#b6dbff"
+              />
+
+            </div>
           </div>
+
+          {/* Modal  */}
 
         </div>
       </div>
+
+      {/* Last two sections of the product page */}
+
+      {/* description  */}
+
+      <div className='flex flex-col gap-16'>
+        <div className='flex flex-col gap-5'>
+          <h3 className='text-2xl text-secondary font-semibold'>
+            Product Description
+          </h3>
+
+          <div className='flex flex-col gap-4'>
+            {product?.description?.split('\n')}
+          </div>
+        </div>
+
+        {/* buy now button  */}
+
+        <button className='btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]'>
+          <Image 
+            src="/assets/icons/bag.svg"
+            alt="check"
+            height={22}
+            width={22}
+          />
+
+          <Link href={'/'} className='text-base text-white'>
+            Buy Now
+          </Link>
+
+        </button>
+      </div>
+
+      {/* showing similar products */}
+
+      {similarProducts && similarProducts?.length > 0 && (
+        <div className='py-14 flex flex-col gap-2 w-full'>
+          <p className='section-text'>Similar Products</p>
+          
+          <div className='flex flex-wrap gap-10 mt-7 w-full'>
+            {similarProducts.map((product) => (
+
+              <ProductCard 
+                key={product._id}
+                product={product}
+              />
+            ))}
+          </div>
+
+
+        </div> 
+
+      )}
+
+
     </div>
   )
 }
