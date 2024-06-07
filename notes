@@ -227,9 +227,22 @@ still doesnt seem to work so changing it as a link to them.
 
 commit --
   
-npm i supports-colors@8.1.1
+  npm i supports-colors@8.1.1
 
 adding few lines to get the routr.ts for build fixes
+
+commit -- 
+
+following the guide: 
+https://vercel.com/guides/how-to-setup-cron-jobs-on-vercel
+
+for the jobs we will be using:
+https://console.cron-job.org/jobs/create
+
+adding the url: https://price-fries.vercel.app/api/cron
+
+
+
 
 
 
