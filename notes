@@ -227,6 +227,9 @@ still doesnt seem to work so changing it as a link to them.
 
 commit --
   
+npm i supports-colors@8.1.1
+
+adding few lines to get the routr.ts for build fixes
 
 
 

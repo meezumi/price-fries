@@ -5,6 +5,12 @@ import { scrapeAmazonProduct } from "@/lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+export const maxDuration = 300; // 5 minutes
+
+export const dynamic = 'force-dynamic' 
+
+export const revalidate = 0;
+
 export async function GET() {
   try {
     connectToDB();
@@ -37,7 +43,7 @@ export async function GET() {
     
 
       const updatedProduct = await Product.findOneAndUpdate({
-        url: scrapedProduct.url}, // what is to be updated(identified by)
+        url: product.url}, // what is to be updated(identified by)
         product, // what part of it to be updated (the entire product here)
         );
 
