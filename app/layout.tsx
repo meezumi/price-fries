@@ -20,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={spaceGrotesk.className}>
+      <head>
+        <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600&display=swap" rel="stylesheet"></link>
+      </head>
+      <body className='tracking-wider'>
         <main className='max-w-10xl mx-auto'>
           <Navbar /> 
         {children}

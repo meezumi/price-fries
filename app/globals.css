@@ -29,7 +29,7 @@
   }
 
   .small-text {
-    @apply flex gap-2 text-sm font-medium text-primary;
+    @apply flex gap-2 text-sm font-semibold text-teal-500;
   }
 
   .paragraph-text {
@@ -153,4 +153,8 @@
 
 .no-outline {
   outline: none;
+}
+
+body {
+  font-family: 'Clash Display', sans-serif;
 }

@@ -1,4 +1,5 @@
 import { PriceHistoryItem, Product } from "@/types";
+import { CheerioAPI } from "cheerio";
 
 const Notification = {
   WELCOME: 'WELCOME',
@@ -91,28 +92,40 @@ export function getAveragePrice(priceList: PriceHistoryItem[]) {
   return averagePrice;
 }
 
-// export const getEmailNotifType = (
-//   scrapedProduct: Product,
-//   currentProduct: Product
-// ) => {
-//   const lowestPrice = getLowestPrice(currentProduct.priceHistory);
+export const getEmailNotifType = (
+  scrapedProduct: Product,
+  currentProduct: Product
+) => {
+  const lowestPrice = getLowestPrice(currentProduct.priceHistory);
 
-//   if (scrapedProduct.currentPrice < lowestPrice) {
-//     return Notification.LOWEST_PRICE as keyof typeof Notification;
-//   }
-//   if (!scrapedProduct.isOutOfStock && currentProduct.isOutOfStock) {
-//     return Notification.CHANGE_OF_STOCK as keyof typeof Notification;
-//   }
-//   if (scrapedProduct.discountRate >= THRESHOLD_PERCENTAGE) {
-//     return Notification.THRESHOLD_MET as keyof typeof Notification;
-//   }
+  if (scrapedProduct.currentPrice < lowestPrice) {
+    return Notification.LOWEST_PRICE as keyof typeof Notification;
+  }
+  if (!scrapedProduct.isOutOfStock && currentProduct.isOutOfStock) {
+    return Notification.CHANGE_OF_STOCK as keyof typeof Notification;
+  }
+  if (scrapedProduct.discountRate >= THRESHOLD_PERCENTAGE) {
+    return Notification.THRESHOLD_MET as keyof typeof Notification;
+  }
 
-//   return null;
-// };
+  return null;
+};
 
 export const formatNumber = (num: number = 0) => {
   return num.toLocaleString(undefined, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
+};
+
+const parseNumberValue = (rawString: string): number => {
+    return Number(rawString.replace(/[^\d.]+/g, ''));
+};
+
+/**
+ * Parses a number value from the first element matching the given selector.
+ */
+export const parseNumberFromSelector = ($: CheerioAPI, selector: string): number => {
+    const rawValue = $(selector).first().text();
+    return parseNumberValue(rawValue);
 };

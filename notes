@@ -212,6 +212,21 @@ to fix the nodemailer error, need to add it as dev dependency:
   npm install --save-dev @types/nodemailer
 
 
+for the cron to work, we will be using its api which will be under: 
+  app -> api -> cron -> route.ts
+
+adding the steps required for the cron job to follow the steps of:
+
+  step-1. scrape latest product details and update db.
+  step-2. now we will check the status of each products and send email accordingly
+
+tried adding more scraping params, like stars and reviesCounts:
+  https://crawlee.dev/blog/how-to-scrape-amazon
+
+still doesnt seem to work so changing it as a link to them.
+
+commit --
+  
 
 
 

@@ -58,7 +58,7 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
                 />
 
                 <p className='text-base font-semibold text-[#D46F77]'>
-                  {product.reviewsCount}
+                  {/* {product.reviewsCount} */} Add to Cart
                 </p>
               </div>
 
@@ -78,6 +78,7 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
                   width={20}
                   height={20}
                 />
+                
               </div>
             </div>
           </div>
@@ -104,7 +105,10 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
                     height={16}
                   />
                   <p className='text-sm text-primary-orange font-semibold'>
-                    {product.stars || '4.6'}
+                    {/* {product.stars || 'Rate it'} */}
+                  <a href={product.url}>
+                    <button>See Ratings</button>
+                  </a>
                   </p>
                 </div>
 
@@ -116,7 +120,10 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
                     width={16}
                   />
                   <p className='text-sm text-secondary font-semibold'>
-                    {product.reviewsCount} Reviews
+                    {/* {product.reviewsCount} */}
+                    <a href={product.url}>
+                    <button>Read Reviews</button>
+                  </a>
                   </p>
                 </div>
               </div>

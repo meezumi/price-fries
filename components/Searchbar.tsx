@@ -61,7 +61,7 @@ const Searchbar = () => {
         value={searchPrompt}
         onChange={(e) => setSearchPrompt(e.target.value)}
         // this just gonna keep track of our value, i.e , input within out state
-        placeholder='link of product you want your hands on?' 
+        placeholder='link of the amazon product you want your hands on?' 
         className='searchbar-input'
       />
 

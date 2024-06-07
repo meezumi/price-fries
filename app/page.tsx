@@ -16,18 +16,12 @@ const Home = async () => {
           <div className='flex flex-col justify-center'>
 
             <p className='small-text'>
-              Shop smart online, wait up and 
-              <Image 
-                src={"/assets/icons/arrow-right.svg"}
-                alt="arrow-right"
-                width={16}
-                height={16}
-              />
+              Shop smart online, wait up and
             </p>
 
             <h1 className='head-text'>
               Unshackle the Power of
-              <span className='text-primary'> PriceFries</span>
+              <span className='text-teal-500'> PriceFries</span>
             </h1>
             
             <p className='mt-6'>
