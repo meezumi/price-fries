@@ -3,6 +3,8 @@ import { connectToDB } from '@/lib/mongoose';
 import User from '@/lib/models/user.model';
 import VerificationToken from '@/lib/models/verificationToken.model';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     await connectToDB();
