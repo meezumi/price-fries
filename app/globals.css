@@ -70,7 +70,7 @@
   }
 
   .product-info {
-    @apply flex items-center flex-wrap gap-10 py-6 border-y border-y-[#E4E4E4];
+    @apply flex items-center flex-wrap gap-10 py-6 border-t border-b border-t-[#E4E4E4] border-b-[#E4E4E4];
   }
 
   .product-hearts {
@@ -157,4 +157,39 @@
 
 body {
   font-family: 'Clash Display', sans-serif;
+}
+
+/* Import pagination and loader styles */
+@import url('../components/pagination.css');
+@import url('../components/loaders.css');
+
+/* Additional animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
 }

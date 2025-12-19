@@ -11,7 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^2.0.4",
     "axios": "^1.7.2",
+    "bcryptjs": "^3.0.3",
     "cheerio": "^1.0.0-rc.12",
+    "express-rate-limit": "^8.2.1",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.4.1",
     "next": "latest",
     "nodemailer": "^6.9.13",
@@ -21,6 +24,7 @@
     "supports-color": "^8.1.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "latest",
     "@types/nodemailer": "^6.4.15",
     "@types/react": "latest",

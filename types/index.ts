@@ -2,7 +2,7 @@ export type PriceHistoryItem = {
   price: number;
 };
 
-export type User = {
+export type UserEmail = {
   email: string;
 };
 
@@ -24,7 +24,7 @@ export type Product = {
   reviewsCount: number;
   stars: number;
   isOutOfStock: Boolean;
-  users?: User[];
+  users?: UserEmail[];
 };
 
 export type NotificationType =
@@ -41,4 +41,31 @@ export type EmailContent = {
 export type EmailProductInfo = {
   title: string;
   url: string;
+};
+
+export type UserAccount = {
+  _id?: string;
+  email: string;
+  password?: string;
+  isVerified: boolean;
+  trackedProducts?: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export type AuthResponse = {
+  success: boolean;
+  message: string;
+  token?: string;
+  user?: UserAccount;
+};
+
+export type PaginatedResponse<T> = {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    pages: number;
+  };
 };

@@ -1,20 +1,59 @@
 import React from 'react'
 import Image from 'next/image'
+import { Suspense } from 'react'
 import Searchbar from '@/components/Searchbar'
 import HeroCarousel from '@/components/HeroCarousel'
 import { getAllProducts } from '@/lib/actions'
 import ProductCard from '@/components/ProductCard'
+import { Pagination } from '@/components/Pagination'
+import { SkeletonGrid } from '@/components/Loaders'
+import { PAGINATION } from '@/lib/constants'
 
-const Home = async () => {
-  const allProducts = await getAllProducts();
+interface HomeProps {
+  searchParams: { page?: string }
+}
+
+const ProductsList = async ({ page }: { page: number }) => {
+  const result = await getAllProducts(page, PAGINATION.DEFAULT_LIMIT);
+  
+  if (!result) {
+    return <div>Failed to load products</div>;
+  }
+
+  const { products, pagination } = result;
+
+  return (
+    <>
+      {products && products.length > 0 ? (
+        <>
+          <div className='flex flex-wrap gap-x-8 gap-y-16'> 
+            {products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+          <Pagination 
+            currentPage={pagination.page}
+            totalPages={pagination.pages}
+            baseUrl="/products"
+          />
+        </>
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-gray-500 text-lg">No products tracked yet. Add one to get started!</p>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Home = async ({ searchParams }: HomeProps) => {
+  const page = parseInt(searchParams?.page || '1', 10);
 
   return ( 
     <>
-    {/* empty react elements helps us to add more elements within it. */}
       <section className='px-6 md:px-20 py-24'> 
         <div className='flex max-xl:flex-col gap-16'>
           <div className='flex flex-col justify-center'>
-
             <p className='small-text'>
               Shop smart online, wait up and
             </p>
@@ -29,23 +68,18 @@ const Home = async () => {
             </p>
 
             <Searchbar />
-
           </div>
 
           <HeroCarousel />
-
         </div>
       </section>
 
       <section className='trending-section'>
         <h2 className='section-text'>Trending</h2>
-
-        {/* now we will be adding new real products, the user will be adding */}
-        <div className='flex flex-wrap gap-x-8 gap-y-16'> 
-          {allProducts?.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </div>
+        
+        <Suspense fallback={<SkeletonGrid />}>
+          <ProductsList page={page} />
+        </Suspense>
       </section>
     </>
   )

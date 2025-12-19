@@ -35,3 +35,24 @@ yarn-error.log*
 next-env.d.ts
 
 .env
+
+# documentation files (local reference only)
+README_NEW.md
+IMPLEMENTATION_SUMMARY.md
+FILE_CHANGES_SUMMARY.md
+FEATURE_GUIDE.md
+CHECKLIST.md
+FINAL_SUMMARY.md
+QUICK_REFERENCE.md
+
+# IDE and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.code-workspace
+
+# logs
+logs/
+*.log

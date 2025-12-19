@@ -5,15 +5,20 @@ import Product from "../models/product.model";
 import { connectToDB } from "../mongoose";
 import { scrapeAmazonProduct } from "../scraper";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
-import { User } from "@/types";
+import { UserEmail } from "@/types";
 import { generateEmailBody, sendEmail } from "../nodemailer";
 
 export async function scrapAndStoreProduct(productUrl: string){
   if(!productUrl) return;
 
   try {
-
     connectToDB();
+
+    // Validate URL
+    const urlObj = new URL(productUrl);
+    if (!urlObj.hostname.includes('amazon.')) {
+      throw new Error('Invalid Amazon URL');
+    }
 
     const scrapedProduct = await scrapeAmazonProduct(productUrl);
 
@@ -67,18 +72,35 @@ export async function getProductById(productId: string) {
   }
 }
 
-export async function getAllProducts() {
+export async function getAllProducts(page: number = 1, limit: number = 12) {
   try {
     connectToDB();
 
-    const products = await Product.find();
+    // Validate pagination params
+    const pageNum = Math.max(1, page);
+    const limitNum = Math.min(limit, 100);
+    const skip = (pageNum - 1) * limitNum;
 
-    return products;
+    const products = await Product.find()
+      .skip(skip)
+      .limit(limitNum)
+      .sort({ createdAt: -1 });
+
+    const total = await Product.countDocuments();
+
+    return {
+      products,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        pages: Math.ceil(total / limitNum)
+      }
+    };
 
   } catch (error) {
     console.log(error);
   }
-
 }
 
 export async function getSimilarProducts(productId: string) {
@@ -107,7 +129,7 @@ export async function addUserEmailToProduct(productId: string, userEmail: string
 
     if(!product) return;
 
-    const userExists = product.users.some((user: User) => user.email === userEmail);
+    const userExists = product.users.some((user: any) => user.email === userEmail);
 
     if(!userExists) {
       product.users.push({ email: userEmail });
