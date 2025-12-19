@@ -1,12 +1,11 @@
 'use client'
 
-export const dynamic = 'force-dynamic';
-
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Spinner } from '@/components/Loaders'
 
-const VerifyPage = () => {
+function VerifyContent() {
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -75,6 +74,12 @@ const VerifyPage = () => {
       </div>
     </div>
   );
-};
+}
 
-export default VerifyPage;
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Spinner size="large" /></div>}>
+      <VerifyContent />
+    </Suspense>
+  );
+}
