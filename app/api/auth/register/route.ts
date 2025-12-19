@@ -7,6 +7,8 @@ import { sendEmail, generateEmailBody } from '@/lib/nodemailer';
 import { EMAIL, RATE_LIMIT } from '@/lib/constants';
 import { rateLimitMiddleware, getRateLimitKey, checkRateLimit } from '@/lib/rateLimiter';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   // Rate limiting for auth
   const key = getRateLimitKey(request);
