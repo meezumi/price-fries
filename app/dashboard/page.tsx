@@ -55,7 +55,8 @@ const DashboardContent = () => {
       method: 'POST'
     });
     
-    router.push('/');
+    // Full page reload
+    window.location.href = '/';
   };
 
   if (isLoading) return <PageLoader />;

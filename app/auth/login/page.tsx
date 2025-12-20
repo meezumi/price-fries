@@ -65,8 +65,9 @@ function LoginContent() {
       
       setMessage('Login successful! Redirecting...');
       
+      // Full page reload instead of client-side navigation
       setTimeout(() => {
-        router.push('/');
+        window.location.href = '/';
       }, 1000);
 
     } catch (err: any) {
