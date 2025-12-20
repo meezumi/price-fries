@@ -66,8 +66,8 @@ const Navbar = () => {
       method: 'POST'
     });
     
-    setIsAuthenticated(false);
-    router.push('/');
+    // Full page reload
+    window.location.href = '/';
   };
 
   return (
