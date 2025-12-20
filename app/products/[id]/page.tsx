@@ -197,21 +197,35 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
           </div>
         </div>
 
-        {/* buy now button  */}
+        {/* buy now button and view details button */}
 
-        <button className='btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]'>
-          <Image 
-            src="/assets/icons/bag.svg"
-            alt="check"
-            height={22}
-            width={22}
-          />
+        <div className='flex gap-4 mx-auto flex-wrap justify-center'>
+          <button className='btn w-fit px-8 py-3 flex items-center justify-center gap-3 min-w-[200px]'>
+            <Image 
+              src="/assets/icons/bag.svg"
+              alt="check"
+              height={22}
+              width={22}
+            />
 
-          <Link href={'/'} className='text-base text-white'>
-            Buy Now
-          </Link>
+            <Link href={product.url} target="_blank" className='text-base text-white'>
+              Buy Now
+            </Link>
+          </button>
 
-        </button>
+          <button className='btn w-fit px-12 py-3 flex items-center justify-center gap-3 min-w-[200px]'>
+            <Image 
+              src="/assets/icons/search.svg"
+              alt="search"
+              height={22}
+              width={22}
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
+            <Link href={product.url} target="_blank" className='text-base text-white'>
+              View Full Details
+            </Link>
+          </button>
+        </div>
       </div>
 
       {/* showing similar products */}

@@ -49,11 +49,30 @@ export function extractDescription($: any) {
   for (const selector of selectors) {
     const elements = $(selector);
     if (elements.length > 0) {
-      const textContent = elements
-        .map((_: any, element: any) => $(element).text().trim())
+      let textContent = elements
+        .map((_: any, element: any) => {
+          let text = $(element).text().trim();
+          
+          // Remove common noise patterns
+          text = text.replace(/To view this video download Flash Player/gi, '');
+          text = text.replace(/^\d+\s*star.*?(\d+%)?$/gmi, ''); // Remove star ratings
+          text = text.replace(/Sort reviews by.*/gi, ''); // Remove review sorting
+          text = text.replace(/Top reviews|Most recent/gi, ''); // Remove review labels
+          text = text.replace(/›/g, ' > '); // Replace breadcrumb separator
+          
+          return text.trim();
+        })
         .get()
+        .filter((text: string) => text.length > 0) // Remove empty strings
         .join("\n");
-      return textContent;
+      
+      // Limit to first 500 characters and clean up extra whitespace
+      if (textContent) {
+        textContent = textContent.substring(0, 500).trim();
+        // Remove multiple consecutive newlines
+        textContent = textContent.replace(/\n\n+/g, '\n');
+        return textContent;
+      }
     }
   }
 

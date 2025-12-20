@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar'
+import { PageTransition } from '@/components/PageTransition'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
@@ -25,12 +26,12 @@ export default function RootLayout({
       </head>
       <body className='tracking-wider'>
         <main className='max-w-10xl mx-auto'>
-          <Navbar /> 
-        {children}
+          <Navbar />
+          <PageTransition>
+            {children}
+          </PageTransition>
         </main>
-        
       </body>
-
     </html>
   )
 }
