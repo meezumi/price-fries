@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
           ref: 'Product' 
         }
       }
+    ],
+    watchedProducts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+      }
     ]
   }, 
   { timestamps: true }

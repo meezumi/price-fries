@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [comparingCount, setComparingCount] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,11 +35,22 @@ const Navbar = () => {
       }
     };
 
-    checkAuth();
+    const updateComparingCount = () => {
+      const items = JSON.parse(localStorage.getItem('comparing-products') || '[]');
+      setComparingCount(items.length);
+    };
 
-    // Listen for storage changes (login/logout in other tabs or redirects)
-    const handleStorageChange = () => {
-      checkAuth();
+    checkAuth();
+    updateComparingCount();
+
+    // Listen for storage changes
+    const handleStorageChange = (e?: StorageEvent) => {
+      if (!e || e.key === 'auth-token') {
+        checkAuth();
+      }
+      if (!e || e.key === 'comparing-products') {
+        updateComparingCount();
+      }
     };
 
     window.addEventListener('storage', handleStorageChange);
@@ -48,6 +60,9 @@ const Navbar = () => {
     localStorage.setItem = function(key, value) {
       if (key === 'auth-token') {
         checkAuth();
+      }
+      if (key === 'comparing-products') {
+        updateComparingCount();
       }
       originalSetItem.apply(this, [key, value]);
     };
@@ -80,6 +95,17 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-5">
+          <Link 
+            href="/compare"
+            className="flex items-center gap-2 text-sm font-semibold text-teal-500 hover:text-teal-600 transition"
+          >
+            Compare
+            {comparingCount > 0 && (
+              <span className="bg-teal-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {comparingCount}
+              </span>
+            )}
+          </Link>
           {isAuthenticated ? (
             <>
               <div className="flex items-center gap-3">
