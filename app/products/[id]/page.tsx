@@ -1,6 +1,7 @@
 import Modal from '@/components/Modal'
 import PriceInfoCard from '@/components/PriceInfoCard'
 import ProductCard from '@/components/ProductCard'
+import { DeleteProductButton } from '@/components/DeleteProductButton'
 import { getProductById, getSimilarProducts } from '@/lib/actions'
 import { formatNumber } from '@/lib/utils'
 import { Product } from '@/types'
@@ -225,6 +226,8 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
               View Full Details
             </Link>
           </button>
+
+          <DeleteProductButton productId={id} productTitle={product.title} />
         </div>
       </div>
 

@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import { PageTransition } from '@/components/PageTransition'
 import './globals.css'
 import type { Metadata } from 'next'
@@ -24,13 +25,14 @@ export default function RootLayout({
       <head>
         <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600&display=swap" rel="stylesheet"></link>
       </head>
-      <body className='tracking-wider'>
-        <main className='max-w-10xl mx-auto'>
+      <body className='tracking-wider flex flex-col min-h-screen'>
+        <main className='max-w-10xl mx-auto w-full flex-1'>
           <Navbar />
           <PageTransition>
             {children}
           </PageTransition>
         </main>
+        <Footer />
       </body>
     </html>
   )
