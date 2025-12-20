@@ -72,7 +72,11 @@ export async function getProductById(productId: string) {
   }
 }
 
-export async function getAllProducts(page: number = 1, limit: number = 12) {
+export async function getAllProducts(
+  page: number = 1, 
+  limit: number = 12,
+  sortBy: 'newest' | 'price-low' | 'price-high' | 'discount' = 'newest'
+) {
   try {
     connectToDB();
 
@@ -81,10 +85,21 @@ export async function getAllProducts(page: number = 1, limit: number = 12) {
     const limitNum = Math.min(limit, 100);
     const skip = (pageNum - 1) * limitNum;
 
+    // Determine sort order
+    let sortOrder: any = { createdAt: -1 }; // default newest
+    
+    if (sortBy === 'price-low') {
+      sortOrder = { currentPrice: 1 }; // ascending
+    } else if (sortBy === 'price-high') {
+      sortOrder = { currentPrice: -1 }; // descending
+    } else if (sortBy === 'discount') {
+      sortOrder = { discountPercentage: -1 }; // highest discount first
+    }
+
     const products = await Product.find()
       .skip(skip)
       .limit(limitNum)
-      .sort({ createdAt: -1 });
+      .sort(sortOrder);
 
     const total = await Product.countDocuments();
 

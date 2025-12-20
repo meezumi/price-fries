@@ -85,6 +85,12 @@ const Navbar = () => {
               <div className="flex items-center gap-3">
                 <span className="text-sm font-semibold text-gray-700">{userEmail}</span>
               </div>
+              <Link 
+                href="/profile"
+                className="text-sm font-semibold text-teal-500 hover:text-teal-600 transition"
+              >
+                Settings
+              </Link>
               <button
                 onClick={handleLogout}
                 className="text-sm font-semibold text-red-500 hover:text-red-600 transition"

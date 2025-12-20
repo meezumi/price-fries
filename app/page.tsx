@@ -8,13 +8,14 @@ import ProductCard from '@/components/ProductCard'
 import { Pagination } from '@/components/Pagination'
 import { SkeletonGrid } from '@/components/Loaders'
 import { PAGINATION } from '@/lib/constants'
+import SortBar from '@/components/SortBar'
 
 interface HomeProps {
-  searchParams: { page?: string }
+  searchParams: { page?: string; sort?: string }
 }
 
-const ProductsList = async ({ page }: { page: number }) => {
-  const result = await getAllProducts(page, PAGINATION.DEFAULT_LIMIT);
+const ProductsList = async ({ page, sort }: { page: number; sort: string }) => {
+  const result = await getAllProducts(page, PAGINATION.DEFAULT_LIMIT, sort as any);
   
   if (!result) {
     return <div>Failed to load products</div>;
@@ -48,6 +49,7 @@ const ProductsList = async ({ page }: { page: number }) => {
 
 const Home = async ({ searchParams }: HomeProps) => {
   const page = parseInt(searchParams?.page || '1', 10);
+  const sort = searchParams?.sort || 'newest';
 
   return ( 
     <>
@@ -76,9 +78,10 @@ const Home = async ({ searchParams }: HomeProps) => {
 
       <section className='trending-section'>
         <h2 className='section-text'>Trending</h2>
+        <SortBar />
         
         <Suspense fallback={<SkeletonGrid />}>
-          <ProductsList page={page} />
+          <ProductsList page={page} sort={sort} />
         </Suspense>
       </section>
     </>
