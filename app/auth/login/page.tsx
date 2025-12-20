@@ -53,13 +53,21 @@ function LoginContent() {
         return;
       }
 
-      // Store token
+      // Store token in localStorage and set as cookie
       localStorage.setItem('auth-token', data.token);
+      
+      // Set token as HTTP-only cookie via API
+      await fetch('/api/auth/set-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: data.token })
+      });
+      
       setMessage('Login successful! Redirecting...');
       
       setTimeout(() => {
-        router.push('/dashboard');
-      }, 1500);
+        router.push('/');
+      }, 1000);
 
     } catch (err: any) {
       setError('An error occurred. Please try again.');

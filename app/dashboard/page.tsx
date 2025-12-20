@@ -47,8 +47,14 @@ const DashboardContent = () => {
     loadData();
   }, [router]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem('auth-token');
+    
+    // Clear cookie via API
+    await fetch('/api/auth/logout', {
+      method: 'POST'
+    });
+    
     router.push('/');
   };
 
