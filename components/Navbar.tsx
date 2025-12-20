@@ -10,30 +10,52 @@ const Navbar = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('auth-token');
-    setIsAuthenticated(!!token);
-
-    // Check auth status on mount
     const checkAuth = async () => {
-      try {
-        const response = await fetch('/api/auth/check', {
-          headers: { 'Authorization': `Bearer ${token || ''}` }
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setIsAuthenticated(true);
-          setUserEmail(data.email);
-        } else {
+      const token = localStorage.getItem('auth-token');
+      setIsAuthenticated(!!token);
+
+      if (token) {
+        try {
+          const response = await fetch('/api/auth/check', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setIsAuthenticated(true);
+            setUserEmail(data.email);
+          } else {
+            setIsAuthenticated(false);
+            setUserEmail('');
+          }
+        } catch (error) {
           setIsAuthenticated(false);
+          setUserEmail('');
         }
-      } catch (error) {
-        setIsAuthenticated(false);
       }
     };
 
-    if (token) {
+    checkAuth();
+
+    // Listen for storage changes (login/logout in other tabs or redirects)
+    const handleStorageChange = () => {
       checkAuth();
-    }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also listen for manual localStorage changes in the same tab
+    const originalSetItem = localStorage.setItem;
+    localStorage.setItem = function(key, value) {
+      if (key === 'auth-token') {
+        checkAuth();
+      }
+      originalSetItem.apply(this, [key, value]);
+    };
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      localStorage.setItem = originalSetItem;
+    };
   }, []);
 
   const handleLogout = async () => {
