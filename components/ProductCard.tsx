@@ -10,7 +10,9 @@ interface Props {
 }
  
 const ProductCard = ({ product }: Props) => {
-  const productIdString = product._id.toString();
+  const productIdString = product._id?.toString() || '';
+  
+  if (!productIdString) return null;
   
   return (
     <div className="relative">
