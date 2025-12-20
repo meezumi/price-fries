@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
-import { Spinner, PageLoader } from '@/components/Loaders'
+import { PageLoader, DashboardSkeleton } from '@/components/Loaders'
 import Link from 'next/link'
 
 interface TrackedProduct {
@@ -19,6 +19,8 @@ const DashboardContent = () => {
   const [user, setUser] = useState<{ email: string } | null>(null);
   const [products, setProducts] = useState<TrackedProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [trackedCount, setTrackedCount] = useState(0);
+  const [totalSavings, setTotalSavings] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -33,9 +35,19 @@ const DashboardContent = () => {
         if (authResponse.ok) {
           const authData = await authResponse.json();
           setUser({ email: authData.email });
-        }
 
-        // Load user's tracked products (implementation coming later)
+          // Load user's tracked products from profile
+          const profileResponse = await fetch('/api/user/profile', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+
+          if (profileResponse.ok) {
+            const profileData = await profileResponse.json();
+            setTrackedCount(profileData.trackedProductsCount || 0);
+          }
+        } else {
+          router.push('/auth/login');
+        }
       } catch (error) {
         console.error('Failed to load dashboard:', error);
         router.push('/auth/login');
@@ -59,7 +71,7 @@ const DashboardContent = () => {
     window.location.href = '/';
   };
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <DashboardSkeleton />;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -84,11 +96,11 @@ const DashboardContent = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Stats Cards */}
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-4xl font-bold text-teal-500 mb-2">0</div>
+            <div className="text-4xl font-bold text-teal-500 mb-2">{trackedCount}</div>
             <p className="text-gray-600">Products Tracked</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-4xl font-bold text-green-500 mb-2">$0</div>
+            <div className="text-4xl font-bold text-green-500 mb-2">${totalSavings.toFixed(2)}</div>
             <p className="text-gray-600">Total Savings</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6">

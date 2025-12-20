@@ -85,6 +85,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured. Please check your environment variables.');
+    }
+
     const response = await resend.emails.send({
       from: 'PriceFries <onboarding@resend.dev>',
       to: sendTo,
@@ -93,12 +97,16 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
     });
 
     if (response.error) {
-      console.error('Email error:', response.error);
-      return;
+      const errorMessage = response.error.message || 'Unknown email service error';
+      console.error('Email sending error:', errorMessage);
+      throw new Error(`Email delivery failed: ${errorMessage}`);
     }
 
     console.log('Email sent successfully:', response.data?.id);
-  } catch (error) {
-    console.error('Failed to send email:', error);
+    return { success: true, messageId: response.data?.id };
+  } catch (error: any) {
+    const errorMessage = error?.message || 'Failed to send email. Please try again later.';
+    console.error('Email error:', errorMessage);
+    throw new Error(errorMessage);
   }
 }

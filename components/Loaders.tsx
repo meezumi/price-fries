@@ -39,6 +39,32 @@ export const SkeletonGrid: React.FC<{ count?: number }> = ({ count = 12 }) => {
   );
 };
 
+export const DashboardSkeleton: React.FC = () => {
+  return (
+    <div className="space-y-8">
+      {/* Stats Cards Skeleton */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="bg-white rounded-lg shadow p-6">
+            <div className="skeleton-line skeleton-line-short mb-2" style={{ width: '40%' }} />
+            <div className="skeleton-line" style={{ width: '60%' }} />
+          </div>
+        ))}
+      </div>
+      
+      {/* Products Grid Skeleton */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <div className="skeleton-line skeleton-line-short mb-6" style={{ width: '30%' }} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const PageLoader: React.FC = () => {
   return (
     <div className="page-loader">

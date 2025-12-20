@@ -117,8 +117,17 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('Registration error:', error);
+    
+    // Check if it's an email sending error
+    if (error.message && error.message.includes('Email')) {
+      return NextResponse.json(
+        { error: `${error.message}. Please contact support if this persists.` },
+        { status: 500 }
+      );
+    }
+    
     return NextResponse.json(
-      { error: 'An error occurred during registration' },
+      { error: error.message || 'An error occurred during registration' },
       { status: 500 }
     );
   }
