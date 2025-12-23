@@ -126,7 +126,7 @@
 
   /* PRODUCT CARD */
   .product-card {
-    @apply sm:w-[292px] sm:max-w-[292px] w-full flex-1 flex flex-col gap-4 rounded-md;
+    @apply w-full flex flex-col gap-4 rounded-md;
   }
 
   .product-card_img-container {
@@ -193,3 +193,17 @@ body {
 .animate-scale-in {
   animation: scaleIn 0.3s ease-out;
 }
+
+/* 
+  RESPONSIVE BREAKPOINTS GUIDE:
+  - Mobile (<640px): sm prefix
+  - Tablet (640px-1024px): md prefix
+  - Desktop (1024px-1280px): lg prefix
+  - Large Desktop (>1280px): xl prefix
+  
+  MOBILE RESPONSIVENESS FEATURES:
+  1. Hamburger Menu: Navbar collapses to menu on mobile
+  2. Card Layout: Comparison page shows cards on mobile
+  3. Grid Layout: Products display in 1 col (mobile) → 2 cols (tablet) → 3 cols (desktop) → 4 cols (large)
+  4. Viewport Meta: Mobile scaling properly configured
+*/

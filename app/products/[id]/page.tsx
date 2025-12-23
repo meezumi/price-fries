@@ -22,82 +22,80 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
   
   return (
     <div className='product-container'>
-      <div className='flex gap-28 xl:flex-row flex-col'>
+      <div className='flex gap-8 sm:gap-12 xl:gap-28 xl:flex-row flex-col'>
         <div className='product-image'>
           <Image 
             src={product.image}
             alt={product.title}
             width={580}
             height={400}
-            className='mx-auto'
+            className='mx-auto w-full h-auto'
           />
         </div>
 
         <div className='flex-1 flex flex-col'>
-          <div className='flex justify-between items-start gap-5 flex-wrap pb-6'>
-            <div className='flex flex-col gap-3'>
-              <p className='text-[28px] text-secondary font-semibold'>
-                {product.title}
+          {/* Title - Full Width */}
+          <p className='text-base sm:text-xl md:text-2xl lg:text-[28px] text-secondary font-semibold mb-4 leading-tight'>
+            {product.title}
+          </p>
+
+          {/* Action Buttons Row */}
+          <div className='flex items-center gap-2 sm:gap-3 mb-6'>
+            <div className='product-hearts flex items-center gap-1 sm:gap-2'>
+              <Image
+                src="/assets/icons/red-heart.svg"
+                alt="heart"
+                width={18}
+                height={18}
+              />
+
+              <p className='text-xs sm:text-sm font-semibold text-[#D46F77] whitespace-nowrap'>
+                Add to Cart
               </p>
-
-              <Link 
-                href={product.url}
-                target="_blank"
-                className='text-base text-black opacity-50'
-              > 
-                Visit Product
-              </Link>
             </div>
 
-            <div className='flex items-center gap-3'>
-              <div className='product-hearts'>
-                <Image
-                  src="/assets/icons/red-heart.svg"
-                  alt="heart"
-                  width={20}
-                  height={20}
-                />
+            <button className='p-1.5 sm:p-2 bg-white-200 rounded-10 hover:bg-gray-300 transition'>
+              <Image 
+                src={"/assets/icons/bookmark.svg"}
+                alt='bookmark'
+                width={18}
+                height={18}
+              />
+            </button>
 
-                <p className='text-base font-semibold text-[#D46F77]'>
-                  {/* {product.reviewsCount} */} Add to Cart
-                </p>
-              </div>
-
-              <div className='p-2 bg-white-200 rounded-10'>
-                <Image 
-                  src={"/assets/icons/bookmark.svg"}
-                  alt='bookmark'
-                  width={20}
-                  height={20}
-                />
-              </div>
-
-              <div className='p-2 bg-white-200 rounded-10'>
-                <Image 
-                  src={"/assets/icons/share.svg"}
-                  alt='share'
-                  width={20}
-                  height={20}
-                />
-                
-              </div>
-            </div>
+            <button className='p-1.5 sm:p-2 bg-white-200 rounded-10 hover:bg-gray-300 transition'>
+              <Image 
+                src={"/assets/icons/share.svg"}
+                alt='share'
+                width={18}
+                height={18}
+              />
+            </button>
           </div>
+
+          {/* Visit Product Link */}
+          <Link 
+            href={product.url}
+            target="_blank"
+            className='text-xs sm:text-sm text-black opacity-50 mb-6'
+          > 
+            Visit Product
+          </Link>
 
           <div className='product-info'>
             <div className='flex flex-col gap-2'>
 
-              <p className='text-[34px] text-secondary font-bold'> 
+              <p className='text-2xl sm:text-[30px] md:text-[34px] text-secondary font-bold'> 
                 {product.currency} {formatNumber(product.currentPrice)}
               </p>
 
-              <p className='text-[21px] text-black opacity-50 line-through'> 
+              <p className='text-lg sm:text-[19px] md:text-[21px] text-black opacity-50 line-through'> 
                 {product.currency} {formatNumber(product.originalPrice)}
               </p>
             </div>
 
             <div className='flex flex-col gap-4'>
-              <div className='flex gap-3'>
+              <div className='flex gap-3 flex-wrap'>
                 <div className='product-stars'>
                   <Image 
                     src={'/assets/icons/star.svg'}
@@ -105,7 +103,7 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
                     width={16}
                     height={16}
                   />
-                  <p className='text-sm text-primary-orange font-semibold'>
+                  <p className='text-xs sm:text-sm text-primary-orange font-semibold'>
                     {/* {product.stars || 'Rate it'} */}
                   <a href={product.url}>
                     <button>See Ratings</button>
@@ -120,7 +118,7 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
                     height={16}
                     width={16}
                   />
-                  <p className='text-sm text-secondary font-semibold'>
+                  <p className='text-xs sm:text-sm text-secondary font-semibold'>
                     {/* {product.reviewsCount} */}
                     <a href={product.url}>
                     <button>Read Reviews</button>
@@ -129,7 +127,7 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
                 </div>
               </div>
 
-              <p className='text-sm text-black opacity-50'>
+              <p className='text-xs sm:text-sm text-black opacity-50'>
                 <span className='text-primary-green font-semibold'>93% </span> of buyers recommend this.
               </p>
 
@@ -189,19 +187,19 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
 
       <div className='flex flex-col gap-16'>
         <div className='flex flex-col gap-5'>
-          <h3 className='text-2xl text-secondary font-semibold'>
+          <h3 className='text-xl sm:text-2xl text-secondary font-semibold'>
             Product Description
           </h3>
 
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-4 text-sm sm:text-base'>
             {product?.description?.split('\n')}
           </div>
         </div>
 
         {/* buy now button and view details button */}
 
-        <div className='flex gap-4 mx-auto flex-wrap justify-center'>
-          <button className='btn w-fit px-8 py-3 flex items-center justify-center gap-3 min-w-[200px]'>
+        <div className='flex gap-2 sm:gap-4 mx-auto flex-wrap justify-center w-full'>
+          <button className='btn w-full sm:w-fit px-4 sm:px-8 py-2 sm:py-3 flex items-center justify-center gap-2 sm:gap-3 min-w-[120px] sm:min-w-[200px] text-sm sm:text-base'>
             <Image 
               src="/assets/icons/bag.svg"
               alt="check"
@@ -209,12 +207,12 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
               width={22}
             />
 
-            <Link href={product.url} target="_blank" className='text-base text-white'>
+            <Link href={product.url} target="_blank" className='text-white'>
               Buy Now
             </Link>
           </button>
 
-          <button className='btn w-fit px-12 py-3 flex items-center justify-center gap-3 min-w-[200px]'>
+          <button className='btn w-full sm:w-fit px-4 sm:px-12 py-2 sm:py-3 flex items-center justify-center gap-2 sm:gap-3 min-w-[120px] sm:min-w-[200px] text-sm sm:text-base'>
             <Image 
               src="/assets/icons/search.svg"
               alt="search"
@@ -222,7 +220,7 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
               width={22}
               style={{ filter: 'brightness(0) invert(1)' }}
             />
-            <Link href={product.url} target="_blank" className='text-base text-white'>
+            <Link href={product.url} target="_blank" className='text-white'>
               View Full Details
             </Link>
           </button>
@@ -237,7 +235,7 @@ const ProductDetails = async ({ params: { id } }: Props ) => {
         <div className='py-14 flex flex-col gap-2 w-full'>
           <p className='section-text'>Similar Products</p>
           
-          <div className='flex flex-wrap gap-10 mt-7 w-full'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8 mt-7 w-full'>
             {similarProducts.map((product) => (
 
               <ProductCard 

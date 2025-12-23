@@ -27,7 +27,7 @@ const ProductsList = async ({ page, sort }: { page: number; sort: string }) => {
     <>
       {products && products.length > 0 ? (
         <>
-          <div className='flex flex-wrap gap-x-8 gap-y-16'> 
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8'> 
             {products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}

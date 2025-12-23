@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import MobileMenu from './MobileMenu'
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -94,10 +95,10 @@ const Navbar = () => {
           </p>
         </Link>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2 sm:gap-5 overflow-x-auto">
           <Link 
             href="/compare"
-            className="flex items-center gap-2 text-sm font-semibold text-teal-500 hover:text-teal-600 transition"
+            className="hidden sm:flex items-center gap-2 text-xs sm:text-sm font-semibold text-teal-500 hover:text-teal-600 transition whitespace-nowrap"
           >
             Compare
             {comparingCount > 0 && (
@@ -108,18 +109,18 @@ const Navbar = () => {
           </Link>
           {isAuthenticated ? (
             <>
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-semibold text-gray-700">{userEmail}</span>
+              <div className="items-center gap-3 hidden sm:flex">
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 truncate max-w-[120px]">{userEmail}</span>
               </div>
               <Link 
                 href="/profile"
-                className="text-sm font-semibold text-teal-500 hover:text-teal-600 transition"
+                className="hidden sm:flex text-xs sm:text-sm font-semibold text-teal-500 hover:text-teal-600 transition whitespace-nowrap"
               >
                 Settings
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-semibold text-red-500 hover:text-red-600 transition"
+                className="hidden sm:flex text-xs sm:text-sm font-semibold text-red-500 hover:text-red-600 transition whitespace-nowrap"
               >
                 Logout
               </button>
@@ -128,28 +129,36 @@ const Navbar = () => {
             <>
               <Link 
                 href="/auth/login"
-                className="text-sm font-semibold text-gray-700 hover:text-teal-500 transition"
+                className="hidden sm:flex text-xs sm:text-sm font-semibold text-gray-700 hover:text-teal-500 transition whitespace-nowrap"
               >
                 Login
               </Link>
               <Link 
                 href="/auth/register"
-                className="text-sm font-semibold px-3 py-1 bg-teal-500 text-white rounded hover:bg-teal-600 transition"
+                className="hidden sm:flex text-xs sm:text-sm font-semibold px-2 sm:px-3 py-1 bg-teal-500 text-white rounded hover:bg-teal-600 transition whitespace-nowrap"
               >
                 Register
               </Link>
             </>
           )}
-          <a href={'https://github.com/meezumi'} target="_blank" rel="noopener noreferrer">
+          <a href={'https://github.com/meezumi'} target="_blank" rel="noopener noreferrer" className="hidden sm:block">
             <button>
               <Image
                 src={"/assets/icons/github.svg"}
-                width={28}
-                height={28} 
+                width={24}
+                height={24} 
                 alt='github'
               />
             </button>
           </a>
+
+          {/* Mobile Menu */}
+          <MobileMenu 
+            isAuthenticated={isAuthenticated}
+            userEmail={userEmail}
+            comparingCount={comparingCount}
+            onLogout={handleLogout}
+          />
         </div>
       </nav>
     </header>
