@@ -13,6 +13,9 @@ const montserrat = Montserrat( { subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'PriceFries',
   description: 'Tracking lows and highs of Product prices and make it yours at the best time :)',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({

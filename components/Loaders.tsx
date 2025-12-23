@@ -36,8 +36,8 @@ export const SkeletonGrid: React.FC<{ count?: number }> = ({ count = 12 }) => {
         <SkeletonCard key={i} />
       ))}
     </div>
-  );
-};
+  )
+}; 
 
 export const DashboardSkeleton: React.FC = () => {
   return (
